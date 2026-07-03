@@ -1,754 +1,415 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beatriz Kath | Nutrição Premium</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Premium Icons -->
+    <title>Beatriz Kath | Nutricionista Clínica</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Palette repaginada: High-Ticket, Premium, Corporate Executive */
-            --bg-dark: #121A16;       /* Deep Forest Obsidian */
-            --bg-card: #1A2620;       /* Rich Moss Slate */
-            --accent-gold: #D4AF37;   /* Metallic Gold Glow */
-            --accent-bright: #E2C974; /* Radiant Bright Gold */
-            --text-light: #F4F6F5;    /* Platinum Silk */
-            --text-muted: #A3B1AA;    /* Eucalyptus Mist */
-            --glass-bg: rgba(26, 38, 32, 0.7);
-            --glass-border: rgba(212, 175, 55, 0.15);
-            --shadow-glow:0 0 25px rgba(212, 175, 55, 0.25);
+            --bg: #050E09; /* Verde escuro profundo e cirúrgico baseado na imagem image_f85ccc.jpg */
+            --gold: #D4AF37; /* Dourado clássico premium */
+            --gold-light: #F9E4B7;
+            --silver: #CCCCCC; /* Prateado suave para textos secundários */
+            --card-bg: rgba(10, 31, 17, 0.4); /* Fundo glassmorphism verde-escuro */
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-white: rgba(255, 255, 255, 0.02);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif; 
             overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.8;
         }
 
-        /* Ambient Lighting Effects */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            top: 5%;
-            right: -10%;
-            z-index: 0;
-            pointer-events: none;
+        /* Bloqueio de autocomplete branco */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus {
+            -webkit-text-fill-color: #fff !important;
+            -webkit-box-shadow: 0 0 0px 1000px #050E09 inset !important;
+            transition: background-color 5000s ease-in-out 0s;
         }
 
-        body::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            bottom: 20%;
-            left: -15%;
-            z-index: 0;
-            pointer-events: none;
+        /* Efeito de iluminação sutil de fundo (Sem poluição visual) */
+        .aura-bg {
+            position: fixed;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            background: 
+                radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(10, 49, 23, 0.3) 0%, transparent 50%);
+            z-index: -1;
         }
 
-        .container {
-            max-width: 480px; /* Tamanho otimizado para Link na Bio / Mobile Premium First */
-            margin: 0 auto;
-            background: linear-gradient(180deg, #121A16 0%, #17221D 100%);
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.6);
-            padding-bottom: 100px;
-            border-left: 1px solid rgba(255,255,255,0.03);
-            border-right: 1px solid rgba(255,255,255,0.03);
-        }
-
-        /* Header / Profile */
-        header {
+        /* Cabeçalho Premium */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 40px 24px 20px 24px;
+            padding: 80px 20px;
             position: relative;
-            z-index: 10;
         }
 
-        .logo-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, var(--text-light) 30%, var(--accent-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
-        }
-
-        .subtitle {
-            font-size: 0.85rem;
+        .hero-pre {
+            font-weight: 300;
+            letter-spacing: 10px;
+            font-size: 0.75rem;
+            color: var(--silver);
+            margin-bottom: 25px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent-gold);
-            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.2rem, 8vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: 12px;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 0.45rem;
+            letter-spacing: 8px;
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            margin-top: 15px;
+            text-transform: uppercase;
         }
 
         .crn {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-top: 2px;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 10px;
         }
 
-        /* Hero / Copy Premium Section */
-        .hero-section {
-            padding: 20px 24px;
-            text-align: center;
-            position: relative;
-        }
-
-        .tagline-box {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-glow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tagline-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(212,175,55,0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 4s infinite linear;
-        }
-
-        @keyframes shine {
-            0% { transform: translate(-30%, -30%) rotate(45deg); }
-            100% { transform: translate(30%, 30%) rotate(45deg); }
-        }
-
-        .hero-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            line-height: 1.4;
-            color: var(--text-light);
-            margin-bottom: 12px;
-        }
-
-        .hero-title span {
-            color: var(--accent-gold);
-        }
-
-        .hero-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* CTAs Principais Estilo LinkTree High-Ticket */
-        .links-container {
-            padding: 0 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .btn-premium {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, var(--bg-card) 0%, #22332A 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 14px;
-            padding: 16px 20px;
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-premium i {
-            font-size: 1.2rem;
-            color: var(--accent-gold);
-            transition: transform 0.3s ease;
-        }
-
-        .btn-premium:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-bright);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-        }
-
-        .btn-premium:hover i {
-            transform: translateX(3px) scale(1.1);
-        }
-
-        /* Destaque para o CTA do Whatsapp */
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #1E3026 0%, #15241C 100%);
-            border: 1px solid #25D366;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.15);
-        }
-        
-        .btn-whatsapp i.fa-whatsapp {
-            color: #25D366;
-        }
-
-        .btn-whatsapp:hover {
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
-            border-color: #25D366;
-        }
-
-        .btn-subtext {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
-        /* Seções de Detalhes (Accordion Inteligente ou Cards Compactos) */
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            color: var(--accent-gold);
-            text-align: center;
-            margin: 35px 24px 15px 24px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 1px;
-            background: var(--accent-gold);
-            margin: 8px auto 0 auto;
-            opacity: 0.5;
-        }
-
-        .pillars-grid {
-            padding: 0 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .pillar-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
+        /* Bloco de Destaque Clínico */
+        .main-headline {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 40px 30px;
+            max-width: 650px;
             border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
+            margin: 40px auto 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .pillar-icon {
-            background: rgba(214, 175, 55, 0.1);
-            color: var(--accent-gold);
-            width: 38px;
-            height: 38px;
+        .main-headline h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .main-headline h2 span {
+            color: var(--gold);
+        }
+
+        .main-headline p {
+            font-size: 0.9rem;
+            color: var(--silver);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* Grid de Ações / Links Diretos */
+        .links-container {
+            max-width: 650px;
+            margin: 40px auto 100px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .action-card {
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            padding: 25px 30px;
             border-radius: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .action-card:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.03);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .card-info {
+            text-align: left;
+        }
+
+        .card-info h3 {
             font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        .pillar-info h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 4px;
-        }
-
-        .pillar-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        /* Método Exclusivo Multi-Step */
-        .method-timeline {
-            padding: 0 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .method-step {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 14px 16px;
-            position: relative;
-        }
-
-        .step-num {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            color: rgba(214, 175, 55, 0.2);
-            font-weight: 700;
-        }
-
-        .method-step h4 {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .method-step h4 i {
-            color: var(--accent-gold);
-            font-size: 0.85rem;
-        }
-
-        .method-step p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Sobre Mim Premium Compacto */
-        .about-card {
-            margin: 0 24px;
-            background: linear-gradient(180deg, rgba(26, 38, 32, 0.5) 0%, rgba(18, 26, 22, 0.5) 100%);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .about-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 12px;
-            text-align: justify;
-        }
-
-        .tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-            margin-top: 14px;
-        }
-
-        .tag-premium {
-            font-size: 0.7rem;
-            background: rgba(214, 175, 55, 0.08);
-            border: 1px solid rgba(214, 175, 55, 0.2);
-            color: var(--accent-bright);
-            padding: 4px 10px;
-            border-radius: 20px;
             font-weight: 500;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
         }
 
-        /* Captura de Leads - Formulário Alta Conversão */
-        .form-section {
-            margin: 35px 24px 20px 24px;
-            background: var(--bg-card);
-            border: 1px solid rgba(214, 175, 55, 0.25);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-glow);
-            position: relative;
-        }
-
-        .form-section h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 6px;
-        }
-
-        .form-section p {
+        .card-info p {
             font-size: 0.8rem;
-            color: var(--text-muted);
-            text-align: center;
-            margin-bottom: 20px;
+            color: var(--silver);
+            font-weight: 300;
+        }
+
+        .action-card i {
+            font-size: 1.3rem;
+            color: var(--gold);
+            transition: 0.3s;
+        }
+
+        .action-card:hover i {
+            color: #fff;
+        }
+
+        /* Seção de Consulta / Formulário */
+        .section-container {
+            padding: 80px 20px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .form-section {
+            background: linear-gradient(180deg, rgba(10,31,17,0.3) 0%, rgba(5,14,9,0.6) 100%);
+            padding: 45px 30px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .label {
+            color: var(--gold);
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .form-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
         }
 
         .input-group {
-            margin-bottom: 14px;
-            position: relative;
+            margin-bottom: 25px;
         }
 
-        .input-group i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--accent-gold);
-            font-size: 0.9rem;
-        }
-
-        .form-control {
+        input, textarea {
             width: 100%;
-            background: #121A16;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 12px 12px 12px 40px;
-            color: var(--text-light);
+            padding: 18px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
             font-size: 0.85rem;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        select.form-control {
-            appearance: none;
-            cursor: pointer;
+        input:focus, textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255,255,255,0.02);
         }
 
         .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #B3922E 100%);
-            color: #121A16;
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728);
+            color: #040A06;
             border: none;
-            border-radius: 10px;
-            padding: 14px;
+            border-radius: 4px;
+            width: 100%;
+            padding: 20px;
             font-weight: 700;
-            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            margin-top: 8px;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(179, 135, 40, 0.15);
         }
 
-        .btn-submit:hover {
-            background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-gold) 100%);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-            transform: translateY(-1px);
+        .btn-submit:hover { 
+            letter-spacing: 6px; 
+            filter: brightness(1.1);
+            box-shadow: 0 15px 30px rgba(179, 135, 40, 0.3);
         }
 
-        /* Footer Executivo */
-        footer {
-            text-align: center;
-            padding: 30px 24px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 40px;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 16px;
-        }
-
-        .social-icons a {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: var(--accent-gold);
-        }
-
-        .footer-credits {
-            font-size: 0.7rem;
-            color: rgba(163, 177, 170, 0.5);
-            letter-spacing: 0.5px;
-        }
-
-        /* Fixed Premium Floating Contact Trigger */
-        .bottom-bar {
+        /* Notificação Invisível de Sucesso */
+        #success-notif {
+            display: none;
             position: fixed;
-            bottom: 20px;
-            left: 50%;
+            top: 20px; left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 48px);
-            max-width: 432px;
-            background: rgba(18, 26, 22, 0.85);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(214, 175, 55, 0.3);
-            border-radius: 30px;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), var(--shadow-glow);
+            background: linear-gradient(135deg, #BF953F, #FCF6BA);
+            color: #000;
+            padding: 15px 35px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.3);
         }
 
-        .bottom-info {
-            display: flex;
-            flex-direction: column;
+        footer {
+            padding: 80px 20px;
+            text-align: center;
         }
 
-        .bottom-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .bottom-status {
-            font-size: 0.65rem;
-            color: #25D366;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .bottom-status::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background-color: #25D366;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
-
-        .btn-bottom-cta {
-            background: #25D366;
-            color: #121A16;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-bottom-cta:hover {
-            transform: scale(1.03);
-            background-color: #20ba59;
+        footer p {
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.3);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div id="success-notif">SOLICITAÇÃO ENVIADA COM SUCESSO.</div>
+    <div class="aura-bg"></div>
+
+    <!-- Seção Hero / Identidade Visual Primária -->
+    <header class="hero">
+        <span class="hero-pre">Atendimento Exclusivo</span>
+        <h1>BEATRIZ KATH</h1>
+        <span style="font-family:'Cinzel'; font-size:1.1rem; letter-spacing:6px; margin-top:10px; display:block; color:#fff;">NUTRICIONISTA CLÍNICA</span>
+        <div class="crn">CRH-3 92047</div>
+
+        <!-- Headline espelhada da imagem image_f85ccc.jpg -->
+        <div class="main-headline">
+            <h2>Nutrição de Alta Performance que <span>Trata, Previne e Transforma</span>.</h2>
+            <p>Alimentação verdadeiramente saudável, desenhada sob medida para a sua rotina executiva e dinâmica.</p>
+        </div>
+    </header>
+
+    <!-- Lista de Links Diretos de Alta Conversão -->
+    <main class="links-container">
         
-        <!-- Premium Header -->
-        <header>
-            <div class="logo-title">Beatriz Kath</div>
-            <div class="subtitle">Nutricionista Clínica</div>
-            <div class="crn">CRN-3 92047</div>
-        </header>
-
-        <!-- Dynamic Copy Headline Box -->
-        <section class="hero-section">
-            <div class="tagline-box">
-                <h1 class="hero-title">Nutrição de Alta Performance que <span>Trata, Previne e Transforma</span>.</h1>
-                <p class="hero-desc">Alimentação verdadeiramente saudável, desenhada sob medida para a sua rotina executiva e dinâmica.</p>
+        <a href="https://wa.me/51999999999" target="_blank" class="action-card">
+            <div class="card-info">
+                <h3>Falar Direto no WhatsApp</h3>
+                <p>Agendamento imediato e dúvidas rápidas</p>
             </div>
-        </section>
+            <i class="fab fa-whatsapp"></i>
+        </a>
 
-        <!-- Links Principais (Estilo Bio do Insta de Alta Conversão) -->
-        <section class="links-container">
+        <a href="#aplicacao" class="action-card">
+            <div class="card-info">
+                <h3>Solicitar Análise de Perfil</h3>
+                <p>Preencha o formulário para triagem de consulta</p>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+
+        <a href="https://instagram.com/beatrizkath.nutri" target="_blank" class="action-card">
+            <div class="card-info">
+                <h3>Acompanhe no Instagram</h3>
+                <p>Conteúdo diário sobre saúde e performance</p>
+            </div>
+            <i class="fab fa-instagram"></i>
+        </a>
+
+    </main>
+
+    <!-- Área de Aplicação / Captação de Pacientes de Alto Padrão -->
+    <section id="aplicacao" class="section-container">
+        <div class="form-section">
+            <span class="label">Private Circle</span>
+            <h2>Aplicação de Consulta</h2>
             
-            <!-- CTA Principal Direct to Action -->
-            <a href="https://wa.me/551922193759?text=Ol%C3%A1%20Nutri%20Beatriz!%20Gostaria%20de%20agendar%20uma%20consulta%20nutricional." class="btn-premium btn-whatsapp" target="_blank">
-                <div>
-                    <span>Falar Direto no WhatsApp</span>
-                    <span class="btn-subtext">Agendamento imediato e dúvidas rápidas</span>
+            <form id="netForm" target="hidden_iframe">
+                <div class="input-group">
+                    <input type="text" id="nome" placeholder="Qual é seu nome completo?" required>
                 </div>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-
-            <!-- CTA do Formulário -->
-            <a href="#agendamento" class="btn-premium">
-                <div>
-                    <span>Solicitar Análise de Perfil</span>
-                    <span class="btn-subtext">Preencha o formulário para entrarmos em contato</span>
-                </div>
-                <i class="fas fa-calendar-check"></i>
-            </a>
-
-            <!-- CTA Conteúdo/Blog -->
-            <a href="https://beatrizkath.wixsite.com/nutricionista" class="btn-premium" target="_blank">
-                <div>
-                    <span>Acessar Website Completo</span>
-                    <span class="btn-subtext font-weight-normal">Artigos sobre emagrecimento e hábitos</span>
-                </div>
-                <i class="fas fa-globe"></i>
-            </a>
-
-        </section>
-
-        <!-- Vantagens do Modelo Online High-Ticket -->
-        <h2 class="section-title">A Experiência Digital Premium</h2>
-        <section class="pillars-grid">
-            <div class="pillar-card">
-                <div class="pillar-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="pillar-info">
-                    <h4>Flexibilidade & Segurança</h4>
-                    <p>Consultas em horários otimizados via Google Meet. Sem perda de tempo em trânsito ou salas de espera.</p>
-                </div>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="pillar-info">
-                    <h4>Acessibilidade Global</h4>
-                    <p>Atendimento exclusivo de onde você estiver, quebrando barreiras geográficas com total confidencialidade.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Como funciona a Jornada de Transformação -->
-        <h2 class="section-title">O Método Científico</h2>
-        <section class="method-timeline">
-            
-            <div class="method-step">
-                <span class="step-num">01</span>
-                <h4><i class="fas fa-clipboard-list"></i> Mapeamento Metabólico Pré-Consulta</h4>
-                <p>Questionário minucioso analisando sua rotina, preferências, histórico e triagem de exames laboratoriais recentes.</p>
-            </div>
-
-            <div class="method-step">
-                <span class="step-num">02</span>
-                <h4><i class="fas fa-video"></i> Alinhamento Estratégico</h4>
-                <p>Análise profunda de seus objetivos e mapeamento das principais barreiras biológicas e de rotina.</p>
-            </div>
-
-            <div class="method-step">
-                <span class="step-num">03</span>
-                <h4><i class="fas fa-file-medical"></i> Plano de Ação Personalizado</h4>
-                <p>Entrega em até 3 dias úteis de um planejamento alimentar adaptado perfeitamente ao seu ecossistema diário.</p>
-            </div>
-
-            <div class="method-step">
-                <span class="step-num">04</span>
-                <h4><i class="fas fa-comments"></i> Suporte de Elite por 30 Dias</h4>
-                <p>Acompanhamento via WhatsApp/E-mail com entrega de planners digitais e planilhas interativas de monitoramento.</p>
-            </div>
-
-        </section>
-
-        <!-- Sobre Mim Compactado com Autoridade -->
-        <h2 class="section-title">A Profissional</h2>
-        <section class="about-card">
-            <p class="about-text">
-                Nutricionista apaixonada pela biologia do corpo humano e pela ciência preventiva. Unindo a precisão da Biotecnologia com a sensibilidade do cuidado clínico individualizado, Beatriz Kath desenvolve estratégias nutricionais que não apenas tratam condições estabelecidas, mas blindam a saúde e aumentam a autonomia de seus pacientes de forma realista e sustentável.
-            </p>
-            <div class="tag-container">
-                <span class="tag-premium">Graduada em Nutrição (USF)</span>
-                <span class="tag-premium">Técnica em Biotecnologia (ETEC)</span>
-                <span class="tag-premium">Expertise Clínica Integrada</span>
-            </div>
-        </section>
-
-        <!-- Seção do Formulário Reservada -->
-        <section id="agendamento" class="form-section">
-            <h3>Lista de Interesse Premium</h3>
-            <p>Deixe seus dados abaixo para receber um contato exclusivo da nossa equipe para agendamento.</p>
-            
-            <!-- 
-               INSTRUÇÕES DE INTEGRAÇÃO (BACKEND):
-               Substitua o action abaixo pelo endpoint do seu Google Apps Script (Forms / Sheets)
-            -->
-            <form action="#" method="POST" id="leadForm">
                 
                 <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="entry.nome" id="nameField" class="form-control" placeholder="Seu Nome Completo" required>
+                    <input type="text" id="whatsapp" placeholder="Seu WhatsApp para contato" required>
                 </div>
-
+                
                 <div class="input-group">
-                    <i class="fab fa-whatsapp"></i>
-                    <input type="tel" name="entry.whatsapp" id="phoneField" class="form-control" placeholder="Seu WhatsApp (com DDD)" required>
+                    <input type="email" id="email" placeholder="Seu melhor e-mail" required>
                 </div>
-
+                
                 <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" name="entry.email" id="emailField" class="form-control" placeholder="Seu Melhor E-mail" required>
+                    <input type="text" id="area" placeholder="Qual seu principal objetivo de saúde hoje?">
                 </div>
-
-                <div class="input-group">
-                    <i class="fas fa-bullseye"></i>
-                    <select name="entry.objetivo" id="objectiveField" class="form-control" required>
-                        <option value="" disabled selected>Seu Principal Objetivo</option>
-                        <option value="Emagrecimento / Definição">Emagrecimento / Definição</option>
-                        <option value="Performance / Energia">Performance / Energia / Produtividade</option>
-                        <option value="Saúde Clínica / Prevenção">Saúde Clínica / Prevenção</option>
-                        <option value="Melhorar Relação com Comida">Melhorar Relação com a Comida</option>
-                    </select>
+                
+                <div class="input-group" style="margin-bottom: 35px;">
+                    <textarea id="objetivo" placeholder="Conte brevemente sobre sua rotina atual..." rows="4"></textarea>
                 </div>
-
-                <button type="submit" class="btn-submit">Solicitar Contato Especialista</button>
+                
+                <button type="button" onclick="enviarParaGoogle()" class="btn-submit">Solicitar Vaga na Agenda</button>
             </form>
-        </section>
 
-        <!-- Footer -->
-        <footer>
-            <div class="social-icons">
-                <a href="https://instagram.com/beatrizkath.nutri" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/551922193759" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="mailto:beatrizkath.nutricionista@gmail.com"><i class="far fa-envelope"></i></a>
-            </div>
-            <div class="footer-credits">
-                &copy; 2026 Beatriz Kath Nutrição Premium.<br>
-                Todos os direitos reservados.
-            </div>
-        </footer>
-
-        <!-- Floating Action Bottom Bar -->
-        <div class="bottom-bar">
-            <div class="bottom-info">
-                <span class="bottom-title">Beatriz Kath</span>
-                <span class="bottom-status">Suporte Online Ativo</span>
-            </div>
-            <a href="https://wa.me/551922193759?text=Ol%C3%A1%20Nutri%20Beatriz!%20Gostaria%20de%20conversar%20sobre%20o%20acompanhamento%20nutricional." class="btn-bottom-cta" target="_blank">
-                <i class="fab fa-whatsapp"></i> Agendar Agora
-            </a>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         </div>
+    </section>
 
-    </div>
+    <footer>
+        <p>&copy; 2026 BEATRIZ KATH | ALL RIGHTS RESERVED</p>
+    </footer>
+
+    <script>
+    function enviarParaGoogle() {
+        const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfRglfXn_F17GRbUIc_lrbeDP8wHrvJNV7uqC7_YJSOke6-Kw/formResponse";
+
+        const dados = new FormData();
+        dados.append("entry.417685247", document.getElementById("nome").value);
+        dados.append("entry.2102787089", document.getElementById("whatsapp").value);
+        dados.append("entry.200111461", document.getElementById("email").value);
+        dados.append("entry.2147009100", document.getElementById("area").value);
+        dados.append("entry.1440035593", document.getElementById("objetivo").value);
+
+        fetch(formUrl, {
+            method: "POST",
+            mode: "no-cors",
+            body: dados
+        }).then(() => {
+            done(); 
+        }).catch(err => {
+            alert("Erro ao enviar. Tente novamente.");
+        });
+    }
+
+    function done() {
+        const notif = document.getElementById('success-notif');
+        notif.style.display = 'block';
+        document.getElementById('netForm').reset();
+        setTimeout(() => { notif.style.display = 'none'; }, 5000);
+    }
+    </script>
 
 </body>
 </html>
